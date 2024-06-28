@@ -22,21 +22,21 @@ export default function Emails(props) {
         </a>
       </div>
     );
+  } else {
+    return (
+      <ul>
+        {props.filteredEmails.map((email, index) => (
+          <Email
+            key={index}
+            email={email}
+            toggleStar={props.toggleStar}
+            toggleRead={props.toggleRead}
+            setEmailClicked={setEmailClicked}
+            setClickedEmail={setClickedEmail}
+            setEmails={props.setEmails}
+          />
+        ))}
+      </ul>
+    );
   }
-
-  return (
-    <ul>
-      {props.filteredEmails.map((email, index) => (
-        <Email
-          key={index}
-          email={email}
-          toggleStar={props.toggleStar}
-          toggleRead={props.toggleRead}
-          setEmailClicked={setEmailClicked}
-          setClickedEmail={setClickedEmail}
-          setEmails={props.setEmails}
-        />
-      ))}
-    </ul>
-  );
 }

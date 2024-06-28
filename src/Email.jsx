@@ -1,5 +1,6 @@
 export default function Email(props) {
   const setRead = (targetEmail) => {
+    //adds a function that sets the email read, "toggleRead" sets an already read email as unread which we don't want in this case
     const updatedEmails = (emails) =>
       emails.map((email) =>
         email.id === targetEmail.id ? { ...email, read: true } : email
@@ -7,15 +8,16 @@ export default function Email(props) {
     props.setEmails(updatedEmails);
   };
 
+  function clickAndRead() {
+    props.setEmailClicked(true); //lets the program know that an email has been clicked
+    props.setClickedEmail(props.email); //lets the program know which email has been clicked
+    setRead(props.email); //calls setRead so the clicked email will be become read
+  }
+
   return (
     <li
       key={props.index}
       className={`email ${props.email.read ? "read" : "unread"}`}
-      onClick={() => {
-        props.setEmailClicked(true);
-        props.setClickedEmail(props.email);
-        setRead(props.email);
-      }}
     >
       <div className="select">
         <input
@@ -33,8 +35,22 @@ export default function Email(props) {
           onChange={() => props.toggleStar(props.email)}
         />
       </div>
-      <div className="sender">{props.email.sender}</div>
-      <div className="title">{props.email.title}</div>
+      <div
+        className="sender"
+        onClick={() => {
+          clickAndRead();
+        }}
+      >
+        {props.email.sender}
+      </div>
+      <div
+        className="title"
+        onClick={() => {
+          clickAndRead();
+        }}
+      >
+        {props.email.title}
+      </div>
     </li>
   );
 }
