@@ -92,6 +92,7 @@ function App() {
           filteredEmails={filteredEmails}
           toggleRead={toggleRead}
           toggleStar={toggleStar}
+          setEmails={setEmails}
         />
       </main>
     </div>

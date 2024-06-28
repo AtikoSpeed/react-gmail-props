@@ -1,8 +1,21 @@
 export default function Email(props) {
+  const setRead = (targetEmail) => {
+    const updatedEmails = (emails) =>
+      emails.map((email) =>
+        email.id === targetEmail.id ? { ...email, read: true } : email
+      );
+    props.setEmails(updatedEmails);
+  };
+
   return (
     <li
       key={props.index}
       className={`email ${props.email.read ? "read" : "unread"}`}
+      onClick={() => {
+        props.setEmailClicked(true);
+        props.setClickedEmail(props.email);
+        setRead(props.email);
+      }}
     >
       <div className="select">
         <input
